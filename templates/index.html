@@ -100,6 +100,46 @@
 						});
 					}
                 });
+
+				$(document).on("keyup", ".search-box", function(event) {
+					var q = $(".search-box").val(),
+						$list = $(".results");
+
+					if (!q) return;
+
+                    if(event.keyCode == 13) {
+                    	$list.html("");
+
+                        var Photos = Parse.Object.extend("Photos");
+
+						var query_caption = new Parse.Query(Photos);
+						query_caption.contains("caption", q);
+
+						var query_tags = new Parse.Query(Photos);
+						query_tags.contains("tags", q);
+
+						var mainQuery = Parse.Query.or(query_caption, query_tags);
+						mainQuery.find({
+							success: function(results) {
+								for (var i = 0; i < results.length; i++) { 
+									var object = results[i];
+									console.log(object);
+									//alert(object.id + ' - ' + object.get('playerName'));
+									$list.append("<li>"
+										+ "<img src='" + object.get('file').url() + "' class='ul-li-thumb' />"
+										+ object.get('caption')
+										+ "<p>" + object.get('tags') + "</p>"
+										+ "</li>"
+									);
+								}
+								$list.listview('refresh');
+							},
+							error: function(error) {
+								alert("Error: " + error.code + " " + error.message);
+							}
+						});
+                    }
+                }); 
         	});
         </script>
 	</head>
