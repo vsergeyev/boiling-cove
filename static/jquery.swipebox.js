@@ -77,8 +77,8 @@
 						if( $(this).attr('title') )
 							title = $(this).attr('title');
 
-						if( $(this).attr('href') )
-							href = $(this).attr('href');
+						if( $(this).attr('src') )
+							href = $(this).attr('src');
 
 						elements.push({
 							href: href,

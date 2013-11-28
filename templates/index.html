@@ -11,7 +11,7 @@
         <link href="http://www.adsy.me/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
         <link href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" rel="stylesheet" />
-        <link href="http://raw.github.com/brutaldesign/swipebox/master/source/swipebox.css" rel="stylesheet" />
+        <link href="http://rawgithub.com/brutaldesign/swipebox/master/source/swipebox.css" rel="stylesheet" />
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
@@ -129,23 +129,29 @@
 						query_tags.contains("tags", q);
 
 						var mainQuery = Parse.Query.or(query_caption, query_tags);
+
+                        $.mobile.showPageLoadingMsg();
+
 						mainQuery.find({
 							success: function(results) {
+                                $.mobile.hidePageLoadingMsg();
+
 								for (var i = 0; i < results.length; i++) { 
 									var object = results[i];
 									//console.log(object);
 									//alert(object.id + ' - ' + object.get('playerName'));
 									$list.append("<li>"
-										+ "<img class='swipebox' src='" + object.get('file').url() + "' href='" + object.get('file').url() + "' class='ul-li-thumb' />"
-										+ object.get('caption')
-										+ "<p>" + object.get('tags') + "</p>"
+										+ "<img src='" + object.get('file').url() + "' class='ul-li-thumb' />"
+                                        + object.get('caption')
+                                        + "<p>" + object.get('tags') + "</p>"
 										+ "</li>"
 									);
 								}
 								$list.listview('refresh');
-                                $(".swipebox").swipebox();
+                                $(".ul-li-thumb").swipebox();
 							},
 							error: function(error) {
+                                $.mobile.hidePageLoadingMsg();
 								alert("Error: " + error.code + " " + error.message);
 							}
 						});
@@ -159,7 +165,7 @@
 		<div data-role="page" id="search-page">
             <div data-role="header" data-theme="b">
                 <a class="login-btn">Login</a>
-                <h1>Photos</h1>
+                <h1>Photos zzz...</h1>
                 <a href="#upload-page" data-rel="dialog">Upload</a>
             </div><!-- /header -->
 
