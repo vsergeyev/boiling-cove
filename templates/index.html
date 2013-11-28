@@ -11,9 +11,12 @@
         <link href="http://www.adsy.me/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
         <link href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" rel="stylesheet" />
+        <link href="http://raw.github.com/brutaldesign/swipebox/master/source/swipebox.css" rel="stylesheet" />
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+        <script src="/static/jquery.swipebox.js"></script>
 
         <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
@@ -130,16 +133,17 @@
 							success: function(results) {
 								for (var i = 0; i < results.length; i++) { 
 									var object = results[i];
-									console.log(object);
+									//console.log(object);
 									//alert(object.id + ' - ' + object.get('playerName'));
 									$list.append("<li>"
-										+ "<img src='" + object.get('file').url() + "' class='ul-li-thumb' />"
+										+ "<img class='swipebox' src='" + object.get('file').url() + "' href='" + object.get('file').url() + "' class='ul-li-thumb' />"
 										+ object.get('caption')
 										+ "<p>" + object.get('tags') + "</p>"
 										+ "</li>"
 									);
 								}
 								$list.listview('refresh');
+                                $(".swipebox").swipebox();
 							},
 							error: function(error) {
 								alert("Error: " + error.code + " " + error.message);
